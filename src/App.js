@@ -1,11 +1,11 @@
 import "./App.css";
-import ApiList from "./components/ApiList";
+import ApiContainer from "./components/ApiContainer";
 
 function App() {
     return (
         <div className="App">
             <h1>Project Picker</h1>
-            <ApiList />
+            <ApiContainer />
         </div>
     );
 }
