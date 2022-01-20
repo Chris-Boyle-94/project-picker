@@ -3,6 +3,7 @@ import axios from "axios";
 import ApiCard from "./ApiCard";
 import ApiRandom from "./ApiRandom";
 import { v4 as uuidv4 } from "uuid";
+import ApiCategories from "./ApiCategories";
 
 const ApiContainer = () => {
     const [apis, setApis] = useState([]);
@@ -24,26 +25,36 @@ const ApiContainer = () => {
         return () => setApis([]);
     }, []);
 
-    console.log(apis);
-
     const handleClick = (e) => {
         setShown(e.target.name);
     };
     return (
         <div>
             <div>
-                <button name="list" onClick={handleClick}>
-                    List
-                </button>
-                <button name="random" onClick={handleClick}>
-                    Random
-                </button>
+                {shown !== "list" && (
+                    <button name="list" onClick={handleClick}>
+                        Full Api List
+                    </button>
+                )}
+                {shown !== "random" && (
+                    <button name="random" onClick={handleClick}>
+                        Random
+                    </button>
+                )}
+                {shown !== "categories" && (
+                    <button name="categories" onClick={handleClick}>
+                        List By Category
+                    </button>
+                )}
             </div>
+            {shown === "random" && apis.length > 0 && <ApiRandom apis={apis} />}
             {shown === "list" &&
                 apis.map((api) => {
                     return <ApiCard api={api} key={uuidv4()} />;
                 })}
-            {shown === "random" && apis.length > 0 && <ApiRandom apis={apis} />}
+            {shown === "categories" && apis.length > 0 && (
+                <ApiCategories apis={apis} />
+            )}
         </div>
     );
 };

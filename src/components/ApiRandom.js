@@ -10,8 +10,6 @@ const ApiRandom = ({ apis }) => {
         setSelectedApi(apis[randomNum]);
     };
 
-    console.log(selectedApi);
-
     return (
         <div>
             <ApiCard api={selectedApi} />
