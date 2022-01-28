@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import ApiCard from "./ApiCard";
+import ApiRandom from "./ApiRandom";
 
-const ApiCategories = ({ apis }) => {
+const ApiCategories = ({ apis, random }) => {
     const [categoriesList, setCategoriesList] = useState([]);
     const [currentCategory, setCurrentCategory] = useState("Animals");
 
@@ -20,17 +21,17 @@ const ApiCategories = ({ apis }) => {
 
     useEffect(() => {
         getCategories();
+
         return setCategoriesList([]);
     }, []);
-
-    const handleClick = (e) => {
-        setCurrentCategory(e.target.name);
-    };
 
     const categoryApis = () => {
         return apis.filter((api) => {
             return api.Category === currentCategory;
         });
+    };
+    const handleClick = (e) => {
+        setCurrentCategory(e.target.name);
     };
 
     return (
@@ -46,9 +47,13 @@ const ApiCategories = ({ apis }) => {
                     </button>
                 );
             })}
-            {categoryApis().map((api) => {
-                return <ApiCard api={api} key={uuidv4()} />;
-            })}
+            {random === false &&
+                categoryApis().map((api) => {
+                    return <ApiCard api={api} key={uuidv4()} />;
+                })}
+            {random === true && categoryApis().length > 0 && (
+                <ApiRandom apis={categoryApis()} />
+            )}
         </div>
     );
 };

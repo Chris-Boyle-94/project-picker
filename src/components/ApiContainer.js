@@ -46,6 +46,11 @@ const ApiContainer = () => {
                         List By Category
                     </button>
                 )}
+                {shown !== "random-category" && (
+                    <button name="random-category" onClick={handleClick}>
+                        Random By Category
+                    </button>
+                )}
             </div>
             {shown === "random" && apis.length > 0 && <ApiRandom apis={apis} />}
             {shown === "list" &&
@@ -53,7 +58,10 @@ const ApiContainer = () => {
                     return <ApiCard api={api} key={uuidv4()} />;
                 })}
             {shown === "categories" && apis.length > 0 && (
-                <ApiCategories apis={apis} />
+                <ApiCategories apis={apis} random={false} />
+            )}
+            {shown === "random-category" && apis.length > 0 && (
+                <ApiCategories apis={apis} random={true} />
             )}
         </div>
     );

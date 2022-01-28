@@ -9,7 +9,7 @@ const ApiRandom = ({ apis }) => {
         const randomNum = Math.floor(Math.random() * (apis.length + 1));
         setSelectedApi(apis[randomNum]);
     };
-
+    
     return (
         <div>
             <ApiCard api={selectedApi} />
